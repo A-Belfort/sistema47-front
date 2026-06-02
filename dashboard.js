@@ -310,7 +310,7 @@ function atualizarTabela() {
       console.log(data);
       typing.remove();
       if (data) {
-        appendBotMessage(data.message);
+        appendBotMessage(data.data.resposta);
       } else {
         appendBotMessage("Desculpe, não consegui processar sua solicitação.");
       }
