@@ -307,8 +307,9 @@ function atualizarTabela() {
         body: JSON.stringify({ pergunta: mensagem })
       });
       const data = await res.json();
+      console.log(data);
       typing.remove();
-      if (data && data.data.resposta) {
+      if (data) {
         appendBotMessage(data.data.resposta);
       } else {
         appendBotMessage("Desculpe, não consegui processar sua solicitação.");
