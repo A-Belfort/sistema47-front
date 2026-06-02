@@ -13,8 +13,8 @@
 
   async function getBotReply(text) {
     try {
-        const response = await fetch('http://127.0.0.1:5000/api/chat', {
-            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mensagem: text })
+        const response = await fetch('http://https://sistema47-back.onrender.com/api/chatbot/mensagens', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ pergunta: text })
         });
         const data = await response.json(); return data.resposta;
     } catch (error) { return "🤖 Servidor offline. Verifique o Flask."; }

@@ -6,6 +6,7 @@
     <title>SISTEMA47 - Importação</title>
     <link rel="stylesheet" href="importacao.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -17,7 +18,7 @@
             </div>
             <div class="logo-text">
                 <strong>SISTEMA47</strong>
-                <p><span>Controle de Materiais</span></p>
+                <span>Controle de Materiais</span>
             </div>
         </div>
 
@@ -43,42 +44,45 @@
             </a>
         </nav>
 
-       <div class="sidebar-user">
-        <div class="user-avatar">
-            <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        <div class="sidebar-user">
+            <div class="user-avatar">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            </div>
+            <div class="user-info">
+                <strong>gabriel.studart</strong>
+                <span>gabriel.studart@edu.pe.senac.br</span>
+            </div>
         </div>
-        <div class="user-info">
-            <strong>gabriel.studart</strong>
-            <span>gabriel.studart@edu.pe.senac.br</span>
-        </div>
-        </div>
-        <div class="sidebar-logout">
-            <a href="login.html"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zm-15 0v12h8v-2H4V5h8V3H2v4z"/></svg>
-      Sair></a>
 
+        <div class="sidebar-logout">
+            <a href="login.html">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zm-15 0v12h8v-2H4V5h8V3H2v4z"/></svg>
+                Sair
+            </a>
         </div>
     </aside>
 
     <main class="main-content">
-        <header class="main-header">
+        <div class="main-header">
             <h1>Importação de Dados</h1>
-            <p>Efetue o upload de arquivos CSV para processamento de ETL e carga no MySQL</p>
-        </header>
+            <p>Efetue o upload de arquivos XLSX para processamento e carga no banco de dados</p>
+        </div>
 
         <div class="content-grid">
             <section class="card upload-card">
-                <h2>Selecionar Arquivo</h2>
+                <h2><i class="fa-solid fa-cloud-upload-alt"></i> Selecionar Arquivo</h2>
                 <div class="drop-zone" id="drop-zone">
                     <div class="drop-zone-icon">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <i class="fa-solid fa-file-excel"></i>
                     </div>
-                    <p>Arrastar e soltar arquivo CSV aqui ou <span>Clique para procurar</span></p>
-                    <input type="file" id="file-input" accept=".csv" style="display: none;">
+                    <p>Arrastar e soltar arquivo XLSX aqui ou <span>Clique para procurar</span></p>
+                    <small style="display: block; margin-top: 12px; color: #9ca3af;">Formatos aceitos: .xlsx</small>
+                    <input type="file" id="file-input" accept=".xlsx, .xls" style="display: none;">
                 </div>
             </section>
 
             <section class="card status-card">
-                <h2>Status do Processamento</h2>
+                <h2><i class="fa-solid fa-chart-simple"></i> Status do Processamento</h2>
                 <div class="status-indicators">
                     <div class="indicator success">
                         <span class="number" id="valid-count">0</span>
@@ -86,7 +90,7 @@
                     </div>
                     <div class="indicator warning">
                         <span class="number" id="warning-count">0</span>
-                        <span class="label">Avisos/Alertas</span>
+                        <span class="label">Alertas</span>
                     </div>
                     <div class="indicator danger">
                         <span class="number" id="invalid-count">0</span>
@@ -96,6 +100,96 @@
             </section>
         </div>
     </main>
+</div>
+
+<!-- BOTÕES FLUTUANTES -->
+<div class="floating-container">
+    <div class="floating-btn notification-btn" id="openPanel">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notification-badge" id="badgeCount">3</span>
+    </div>
+    <div class="floating-btn chat-btn" id="chatFabBtn">
+        <i class="fa-regular fa-comment-dots"></i>
+    </div>
+</div>
+
+<!-- PAINEL DE NOTIFICAÇÕES -->
+<div class="notification-panel" id="notificationPanel">
+    <div class="panel-header">
+        <div class="header-title">
+            <i class="fa-solid fa-bell"></i>
+            <h3>Alertas e Notificações</h3>
+        </div>
+        <button class="close-panel" id="closePanel">&times;</button>
+    </div>
+    <div class="unread-counter">
+        <strong id="unreadCount">3</strong> notificações não lidas
+    </div>
+    <div class="mark-all-area">
+        <button class="btn-mark-all"><i class="fa-regular fa-check-circle"></i> Marcar todas como lidas</button>
+    </div>
+    <div class="panel-content">
+        <div class="alert-item">
+            <div class="alert-icon-area">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="alert-main-content">
+                <div class="alert-title-row">
+                    <strong>Estoque crítico detectado</strong>
+                    <span class="alert-badge critical-badge">CRÍTICO</span>
+                </div>
+                <p>O material 10310156 está com estoque abaixo do nível mínimo recomendado.</p>
+                <div class="alert-tags">
+                    <span class="tag">Material 4</span>
+                    <span class="tag">Estoque: 12 un</span>
+                </div>
+                <div class="alert-actions">
+                    <button class="action-btn read"><i class="fa-regular fa-check-circle"></i> Marcar como lido</button>
+                    <button class="action-btn dismiss"><i class="fa-regular fa-trash-alt"></i> Dispensar</button>
+                </div>
+            </div>
+        </div>
+        <div class="alert-item">
+            <div class="alert-icon-area">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+            <div class="alert-main-content">
+                <div class="alert-title-row">
+                    <strong>Variação anormal no consumo</strong>
+                    <span class="alert-badge critical-badge">ATENÇÃO</span>
+                </div>
+                <p>O consumo da Semana 5 apresentou queda de 34.3% em relação à semana anterior.</p>
+                <div class="alert-tags">
+                    <span class="tag">Semana 5</span>
+                    <span class="tag">Queda: 34.3%</span>
+                </div>
+                <div class="alert-actions">
+                    <button class="action-btn read"><i class="fa-regular fa-check-circle"></i> Marcar como lido</button>
+                    <button class="action-btn dismiss"><i class="fa-regular fa-trash-alt"></i> Dispensar</button>
+                </div>
+            </div>
+        </div>
+        <div class="alert-item">
+            <div class="alert-icon-area">
+                <i class="fa-solid fa-truck"></i>
+            </div>
+            <div class="alert-main-content">
+                <div class="alert-title-row">
+                    <strong>Pedido pendente de aprovação</strong>
+                    <span class="alert-badge critical-badge">PENDENTE</span>
+                </div>
+                <p>O pedido de compra #2047 aguarda aprovação há 3 dias.</p>
+                <div class="alert-tags">
+                    <span class="tag">Pedido #2047</span>
+                    <span class="tag">Fornecedor: X</span>
+                </div>
+                <div class="alert-actions">
+                    <button class="action-btn read"><i class="fa-regular fa-check-circle"></i> Marcar como lido</button>
+                    <button class="action-btn dismiss"><i class="fa-regular fa-trash-alt"></i> Dispensar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="importacao.js"></script>
