@@ -309,8 +309,8 @@ function atualizarTabela() {
       const data = await res.json();
       console.log(data);
       typing.remove();
-      if (data) {
-        appendBotMessage(data.data.resposta);
+      if (data && data.message) {
+        appendBotMessage(data.message);
       } else {
         appendBotMessage("Desculpe, não consegui processar sua solicitação.");
       }
